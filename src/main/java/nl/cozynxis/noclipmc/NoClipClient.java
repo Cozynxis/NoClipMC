@@ -48,7 +48,7 @@ public class NoClipClient implements ClientModInitializer {
                 client.player.getAbilities().flying = true;
                 client.player.getAbilities().setFlyingSpeed(0.05F);
                 client.player.setNoGravity(true);
-                client.player.setDeltaMovement(client.player.getDeltaMovement().multiply(0.6, 0.6, 0.6));
+                client.player.noPhysics = true;
             }
         });
     }
@@ -60,6 +60,8 @@ public class NoClipClient implements ClientModInitializer {
         enabled = true;
         client.player.getAbilities().mayfly = true;
         client.player.getAbilities().flying = true;
+        client.player.noPhysics = true;
+        client.player.setNoGravity(true);
         client.player.displayClientMessage(Component.translatable("noclipmc.enabled"), true);
     }
 
