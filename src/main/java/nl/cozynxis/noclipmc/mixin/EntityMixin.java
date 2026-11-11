@@ -14,18 +14,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EntityMixin {
     @Inject(method = "baseTick", at = @At("HEAD"))
     private void noclipmc$baseTick(CallbackInfo ci) {
-        noclipmc$apply();
-    }
-
-    @Inject(method = "move", at = @At("HEAD"))
-    private void noclipmc$beforeMove(MoverType type, Vec3 movement, CallbackInfo ci) {
-        noclipmc$apply();
-    }
-
-    private void noclipmc$apply() {
         if ((Object) this instanceof LocalPlayer player && NoClipClient.isEnabled()) {
             player.noPhysics = true;
             player.setNoGravity(true);
+        }
+    }
+
+    // Skip vanilla's collision resolution entirely while NoClip is active.
+    // Merely setting noPhysics does not consistently bypass all player movement paths.
+    @Inject(method = "move", at = @At("HEAD"), cancellable = true)
+    private void noclipmc$moveWithoutCollisions(MoverType type, Vec3 movement, CallbackInfo ci) {
+        if ((Object) this instanceof LocalPlayer player && NoClipClient.isEnabled()) {
+            player.noPhysics = true;
+            player.setNoGravity(true);
+            player.setPos(player.getX() + movement.x, player.getY() + movement.y, player.getZ() + movement.z);
+            ci.cancel();
         }
     }
 }
