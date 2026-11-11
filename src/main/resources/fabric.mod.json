@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "noclipmc",
+  "version": "1.0.0",
+  "name": "NoClipMC",
+  "description": "Toggle noclip flight without spectator mode.",
+  "authors": ["Cozynxis"],
+  "environment": "client",
+  "entrypoints": {
+    "client": ["nl.cozynxis.noclipmc.NoClipClient"]
+  },
+  "mixins": ["noclipmc.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.17.0",
+    "minecraft": "1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

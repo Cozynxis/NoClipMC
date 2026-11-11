@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "nl.cozynxis.noclipmc.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["EntityMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
